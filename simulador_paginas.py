@@ -1,12 +1,10 @@
 import time 
 
 def valor_padrao(mensagem, valor_padrao):
-    """Simula a função readWithPattern do C++."""
-    entrada = input(f"{mensagem} (Enter = {valor_padrao}): ").strip()
+    entrada = input(f"{mensagem} (padrao = {valor_padrao}): ").strip()
     
     if not entrada:
         return valor_padrao
-    
     try:
         return int(entrada)
     except ValueError:
@@ -15,17 +13,22 @@ def valor_padrao(mensagem, valor_padrao):
 
 def main():
     #entradas
-    memoria_fisica = valor_padrao("Memoria fisica (bytes)", 2147483648)  # 2GB
-    memoria_logica = valor_padrao("Memoria logica (bytes)", 4294967296)  # 4GB
-    tamanho_pagina = valor_padrao("Tamanho da pagina (bytes)", 4096)     # 4KB
+    memoria_fisica = valor_padrao("Memoria fisica (GB)", 2)  # 2GB
+    memoria_logica = valor_padrao("Memoria logica (GB)", 4)  # 4GB
+    tamanho_pagina = valor_padrao("Tamanho da pagina (KB)", 4)     # 4KB
     endereco_logico = valor_padrao("Endereco logico a ser buscado", 20500)
     print("\nqual nivel paginacao:(Nivel 1 ou Nivel 2)")
     
-    modo = int(input("Escolha: "))
+    escolha = int(input("Escolha: "))
+
+    # Converter para bytes
+    memoria_fisica_bytes = memoria_fisica * (1024 ** 3)
+    memoria_logica_bytes = memoria_logica * (1024 ** 3)
+    tamanho_pagina_bytes = tamanho_pagina * 1024
 
     # Cálculos básicos
-    num_paginas = memoria_logica // tamanho_pagina
-    num_molduras = memoria_fisica // tamanho_pagina
+    num_paginas = memoria_logica_bytes // tamanho_pagina_bytes
+    num_molduras = memoria_fisica_bytes // tamanho_pagina_bytes
 
     pagina_logica = endereco_logico // tamanho_pagina
     deslocamento = endereco_logico % tamanho_pagina
@@ -39,7 +42,7 @@ def main():
     moldura = 0
 
     moldura = 0
-    if modo == 1:
+    if escolha == 1:
         # Tabela de 1 nível
         tabela = [-1] * num_paginas # Tabela de paginas
         for i in range(min(num_molduras, num_paginas)):
@@ -55,8 +58,8 @@ def main():
             else:
                 print(f"{i:4} | {tabela[i]}")
     
-    elif modo == 2:
-        print('modo 2')
+    elif escolha == 2:
+        print('escolha 2')
         TAM_N2 = 4
         tam_n1 = (num_paginas + TAM_N2 - 1) // TAM_N2
         tabela = []
@@ -90,7 +93,7 @@ def main():
                 else:
                     print(f"    P[{j}] = {tabela[i][j]}")
     else:
-        print("Modo inválido. Escolha 1 ou 2.")
+        print("escolha inválido. Escolha 1 ou 2.")
         return
     endereco_fisico = (moldura * tamanho_pagina) + deslocamento
     
