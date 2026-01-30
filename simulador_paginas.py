@@ -1,12 +1,25 @@
 
+def valor_padrao(mensagem, valor_padrao):
+    """Simula a função readWithPattern do C++."""
+    entrada = input(f"{mensagem} (Enter = {valor_padrao}): ").strip()
+    
+    if not entrada:
+        return valor_padrao
+    
+    try:
+        return int(entrada)
+    except ValueError:
+        print("Entrada inválida. Usando valor padrão.")
+        return valor_padrao
+
 def main():
     #entradas
-    memoria_fisica = int(input("Memoria fisica (bytes) [padrão 2147483648]: "))
-    memoria_logica = int(input("Memoria logica (bytes) [padrão 4294967296]: "))
-    tamanho_pagina = int(input("Tamanho da pagina (bytes) [padrão 4096]: "))
-    endereco_logico = int(input("Endereco logico a ser buscado [padrão 20500]: "))
+    memoria_fisica = valor_padrao("Memoria fisica (bytes)", 2147483648)  # 2GB
+    memoria_logica = valor_padrao("Memoria logica (bytes)", 4294967296)  # 4GB
+    tamanho_pagina = valor_padrao("Tamanho da pagina (bytes)", 4096)     # 4KB
+    endereco_logico = valor_padrao("Endereco logico a ser buscado", 20500)
 
-    print("Tabela de paginas (1 nivel)")
+    print("\nTabela de paginas (1 nivel)")
 
     # Cálculos básicos
     num_paginas = memoria_logica // tamanho_pagina
@@ -15,8 +28,10 @@ def main():
     pagina_logica = endereco_logico // tamanho_pagina
     deslocamento = endereco_logico % tamanho_pagina
 
-    print(f"\nPagina logica: {pagina_logica}")
+    print("=============================")
+    print(f"Pagina logica: {pagina_logica}")
     print(f"Deslocamento: {deslocamento}")
+    print("=============================")
 
     # Tabela de 1 nível
     tabela = [-1] * num_paginas # Tabela de paginas
@@ -24,7 +39,7 @@ def main():
         tabela[i] = (i * 3) % num_molduras
 
     moldura = tabela[pagina_logica]
-    print("\__________ TABELA DE PAGINAS (1 NIVEL) __________")
+    print("=== TABELA DE PAGINAS (1 NIVEL)===")
     print("Pagina | Moldura")
     print("----------------")
     for i in range(10):
