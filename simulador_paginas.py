@@ -13,22 +13,17 @@ def valor_padrao(mensagem, valor_padrao):
 
 def main():
     #entradas
-    memoria_fisica = valor_padrao("Memoria fisica (GB)", 2)  # 2GB
-    memoria_logica = valor_padrao("Memoria logica (GB)", 4)  # 4GB
-    tamanho_pagina = valor_padrao("Tamanho da pagina (KB)", 4)     # 4KB
+    memoria_fisica = valor_padrao("Memoria fisica (bytes)", 2147483648)  # 2GB
+    memoria_logica = valor_padrao("Memoria logica (bytes)", 4294967296)  # 4GB
+    tamanho_pagina = valor_padrao("Tamanho da pagina (bytes)", 4096)     # 4KB
     endereco_logico = valor_padrao("Endereco logico a ser buscado", 20500)
     print("\nqual nivel paginacao:(Nivel 1 ou Nivel 2)")
     
     escolha = int(input("Escolha: "))
 
-    # Converter para bytes
-    memoria_fisica_bytes = memoria_fisica * (1024 ** 3)
-    memoria_logica_bytes = memoria_logica * (1024 ** 3)
-    tamanho_pagina_bytes = tamanho_pagina * 1024
-
     # Cálculos básicos
-    num_paginas = memoria_logica_bytes // tamanho_pagina_bytes
-    num_molduras = memoria_fisica_bytes // tamanho_pagina_bytes
+    num_paginas = memoria_logica // tamanho_pagina
+    num_molduras = memoria_fisica // tamanho_pagina
 
     pagina_logica = endereco_logico // tamanho_pagina
     deslocamento = endereco_logico % tamanho_pagina
