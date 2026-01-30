@@ -18,6 +18,30 @@ def tabela_nivel_um(num_paginas, num_molduras):
         tabela[i] = (i * 3) % num_molduras
     return tabela
 
+def tabela_nivel_dois(num_paginas, num_molduras, pagina_logica):
+    TAM_N2 = 4
+    tam_n1 = (num_paginas + TAM_N2 - 1) // TAM_N2
+    tabela = []
+    # Inicializando a tabela
+    for i in range(tam_n1):
+        linha = []
+        for j in range(TAM_N2):
+            linha.append(-1)
+        tabela.append(linha)
+
+    frame = 0
+    for i in range(tam_n1):
+        for j in range(TAM_N2):
+            if frame < num_molduras:
+                tabela[i][j] = frame
+                frame += 1
+
+    i1 = pagina_logica // TAM_N2
+    i2 = pagina_logica % TAM_N2
+    moldura = tabela[i1][i2]
+    
+    return tabela, i1, i2, moldura, tam_n1
+
 def main():
     #entradas
     memoria_fisica = valor_padrao("Memoria fisica (bytes)", 2147483648)  # 2GB
@@ -59,27 +83,8 @@ def main():
                 print(f"{i:4} | {tabela[i]}")
     
     elif escolha == 2:
-        print('escolha 2')
+        tabela, i1, i2, moldura, tam_n1 = tabela_nivel_dois(num_paginas, num_molduras, pagina_logica)
         TAM_N2 = 4
-        tam_n1 = (num_paginas + TAM_N2 - 1) // TAM_N2
-        tabela = []
-        # Incializando front da tabela
-        for i in range(tam_n1):
-            linha = []
-            for j in range(TAM_N2):
-                linha.append(-1)
-            tabela.append(linha)
-
-        frame = 0
-        for i in range(tam_n1):
-            for j in range(TAM_N2):
-                if frame < num_molduras:
-                    tabela[i][j] = frame
-                    frame += 1
-
-        i1 = pagina_logica // TAM_N2
-        i2 = pagina_logica % TAM_N2
-        moldura = tabela[i1][i2]
 
         print("\n=== TABELA DE PAGINAS (2 NIVEIS) ===")
         print(f"Indice nivel 1 acessado: {i1}")
