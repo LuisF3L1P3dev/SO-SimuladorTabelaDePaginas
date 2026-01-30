@@ -24,7 +24,14 @@ def main():
         tabela[i] = (i * 3) % num_molduras
 
     moldura = tabela[pagina_logica]
-    print(f"Moldura: {moldura}")
-
+    print("\__________ TABELA DE PAGINAS (1 NIVEL) __________")
+    print("Pagina | Moldura")
+    print("----------------")
+    for i in range(10):
+        if i == pagina_logica:
+            print(f">>> {i:2} | {tabela[i]} <<<")
+        else:
+            print(f"{i:4} | {tabela[i]}")
+    
 if __name__ == "__main__":
     main()
