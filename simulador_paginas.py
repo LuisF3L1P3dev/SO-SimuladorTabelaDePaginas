@@ -52,6 +52,41 @@ def main():
     
     elif modo == 2:
         print('modo 2')
+        TAM_N2 = 4
+        tam_n1 = (num_paginas + TAM_N2 - 1) // TAM_N2
+        tabela = []
+        # Incializando front da tabela
+        for i in range(tam_n1):
+            linha = []
+            for j in range(TAM_N2):
+                linha.append(-1)
+            tabela.append(linha)
+
+        frame = 0
+        for i in range(tam_n1):
+            for j in range(TAM_N2):
+                if frame < num_molduras:
+                    tabela[i][j] = frame
+                    frame += 1
+
+        i1 = pagina_logica // TAM_N2
+        i2 = pagina_logica % TAM_N2
+        
+
+        print("\n=== TABELA DE PAGINAS (2 NIVEIS) ===")
+        print(f"Indice nivel 1 acessado: {i1}")
+        print(f"Indice nivel 2 acessado: {i2}")
+
+        for i in range(min(tam_n1, 4)):
+            print(f"\nNivel 1[{i}]")
+            for j in range(TAM_N2):
+                if i == i1 and j == i2:
+                    print(f">>> P[{j}] = {tabela[i][j]} <<<")
+                else:
+                    print(f"    P[{j}] = {tabela[i][j]}")
+    else:
+        print("Modo inválido. Escolha 1 ou 2.")
+        return
     
 if __name__ == "__main__":
     main()
