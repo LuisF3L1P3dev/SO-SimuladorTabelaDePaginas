@@ -1,3 +1,4 @@
+import time 
 
 def valor_padrao(mensagem, valor_padrao):
     """Simula a função readWithPattern do C++."""
@@ -33,6 +34,10 @@ def main():
     print(f"Pagina logica: {pagina_logica}")
     print(f"Deslocamento: {deslocamento}")
     print("=============================")
+
+    inicio = time.time_ns()
+    moldura = 0
+
     moldura = 0
     if modo == 1:
         # Tabela de 1 nível
@@ -89,6 +94,9 @@ def main():
         return
     endereco_fisico = (moldura * tamanho_pagina) + deslocamento
     
+    # Final contagem tempo
+    fim = time.time_ns()
+    tempo = fim - inicio
 
     print("\n=== MEMORIA FISICA (MOLDURAS) ===")
     for i in range(10):
@@ -98,6 +106,6 @@ def main():
             print(f"    Moldura {i}")
 
     print(f"\nEndereco fisico: {endereco_fisico}")
-
+    print(f"Tempo: {tempo} ns")
 if __name__ == "__main__":
     main()
