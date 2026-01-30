@@ -11,6 +11,13 @@ def valor_padrao(mensagem, valor_padrao):
         print("Entrada inválida. Usando valor padrão.")
         return valor_padrao
 
+
+def tabela_nivel_um(num_paginas, num_molduras):
+    tabela = [-1] * num_paginas  # Tabela de páginas
+    for i in range(min(num_molduras, num_paginas)):
+        tabela[i] = (i * 3) % num_molduras
+    return tabela
+
 def main():
     #entradas
     memoria_fisica = valor_padrao("Memoria fisica (bytes)", 2147483648)  # 2GB
@@ -39,9 +46,7 @@ def main():
     moldura = 0
     if escolha == 1:
         # Tabela de 1 nível
-        tabela = [-1] * num_paginas # Tabela de paginas
-        for i in range(min(num_molduras, num_paginas)):
-            tabela[i] = (i * 3) % num_molduras
+        tabela = tabela_nivel_um(num_paginas, num_molduras)
 
         moldura = tabela[pagina_logica]
         print("=== TABELA DE PAGINAS (1 NIVEL)===")
