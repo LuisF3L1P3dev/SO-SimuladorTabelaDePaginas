@@ -71,7 +71,7 @@ def main():
 
         i1 = pagina_logica // TAM_N2
         i2 = pagina_logica % TAM_N2
-        
+        moldura = tabela[i1][i2]
 
         print("\n=== TABELA DE PAGINAS (2 NIVEIS) ===")
         print(f"Indice nivel 1 acessado: {i1}")
@@ -87,6 +87,17 @@ def main():
     else:
         print("Modo inválido. Escolha 1 ou 2.")
         return
+    endereco_fisico = (moldura * tamanho_pagina) + deslocamento
     
+
+    print("\n=== MEMORIA FISICA (MOLDURAS) ===")
+    for i in range(10):
+        if i == moldura:
+            print(f">>> Moldura {i} <<<")
+        else:
+            print(f"    Moldura {i}")
+
+    print(f"\nEndereco fisico: {endereco_fisico}")
+
 if __name__ == "__main__":
     main()
